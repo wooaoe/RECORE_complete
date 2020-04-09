@@ -65,6 +65,9 @@
     
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     
+    	<!-- @@ RECORE favicon @@  -->
+    <link rel="icon" href="<%=request.getContextPath()%>/images/recorefavi.png">
+    
   </head>
   
   <body id = "body">
@@ -347,10 +350,10 @@
 		<th scope="row">휴대전화</th>
 		<td><span>${vo.acc_phone}</span></td>
 		</tr>
-		<tr>
+		<!-- <tr>
 		<th scope="row">배송메시지</th>
 		<td></td>
-	    </tr>
+	    </tr> -->
 		</tbody>
 	</table>
 	
@@ -360,7 +363,7 @@
 	<div class="ec-base-button">
 	        
         <span class="gRight">
-            <a href="<%=request.getContextPath()%>/RECOREMain/index.html" class="btnNormalFix sizeL">쇼핑계속하기</a>
+            <a href="<%=request.getContextPath()%>/Product.do?command=ProdSelectAll&pageno=1" class="btnNormalFix sizeL">쇼핑계속하기</a>
             <a href="<%=request.getContextPath()%>/mypage.do?command=orderlist&pageno=1" class="btnSubmitFix sizeL">주문확인하기</a>
         </span>
     </div>

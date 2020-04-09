@@ -169,7 +169,10 @@ public class Product_Controller extends HttpServlet {
 
 			ArrayList<Vo_Prod_option> povo = dao.po_selectOne(pvo);
 			request.setAttribute("povo", povo);
-
+			
+			//세션에 적립금 리프레쉬
+			Vo_Account vo_acc = mdao.selectAccount(acc.getAcc_no());
+			session.setAttribute("vo", vo_acc);
 			
 			dispatch("./RECOREMain/RECOREProduct/Prod_Checkout.jsp", request, response);
 			
@@ -212,6 +215,10 @@ public class Product_Controller extends HttpServlet {
 			request.setAttribute("prod_id", id);
 			request.setAttribute("arr_price", price);
 			request.setAttribute("prod_amount", amount);
+			
+			//세션에 적립금 리프레쉬
+			Vo_Account vo_acc = mdao.selectAccount(acc.getAcc_no());
+			session.setAttribute("vo", vo_acc);
 
 			dispatch("./RECOREMain/RECOREProduct/Prod_Checkout2.jsp", request, response);
 			

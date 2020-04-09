@@ -62,17 +62,25 @@
 
 <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
 
+<!-- @@ RECORE favicon @@  -->
+    <link rel="icon" href="<%=request.getContextPath()%>/images/recorefavi.png">
+
 <!-- jQuery -->
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <!-- iamport.payment.js -->
 <script type="text/javascript"
 	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
+<style type="text/css">
+.has-children a{
+   font-weight: 300;
+}
+.site-navbar-top{
+   line-height: 1.5;
+}
+</style>
 
 <%@ include file="/head.jsp"%>
-
-
 
 
 <style type="text/css">
@@ -94,7 +102,7 @@
 
 <script type="text/javascript">
 								
-		$(document).ready(function(){
+		<%-- $(document).ready(function(){
 			$("#user_sameV2").click(function(){ 
 				//주문자와 동일이 체크되면 value 값 뿌려주고 readonly로 바꿈 
 			
@@ -105,13 +113,13 @@
 				$("#roadAddrPart1").val("<%=acc.getAcc_addr()%>");
 				$("#addrDetail").val("<%=acc.getAcc_addr2()%>");
 				
-				$("#requiredCus").attr("readonly", true); 				
-				$("#zipNo").attr("readonly", true);
-				$("#roadAddrPart1").attr("readonly", true);
-				$("#addrDetail").attr("readonly", true);
+				$("#requiredCus").prop("readonly", true); 				
+				$("#zipNo").prop("readonly", true);
+				$("#roadAddrPart1").prop("readonly", true);
+				$("#addrDetail").prop("readonly", true);
 			}
 			});
-		}); 
+		});  --%>
 		
 	</script>
 	
@@ -135,7 +143,7 @@
 		
 		var point = $("#point").val();
 		var originprice = $("#total").val();
-	
+		var accpoint = <%=acc.getAcc_point()%>;
 		var numformat_point = "<fmt:formatNumber>-${vo.acc_point}</fmt:formatNumber>원";
 		var res = originprice - point;
 		
@@ -143,7 +151,7 @@
 							
 				if($("#allDepositCheckboxV2").is(":checked") == true){ //모두사용이 체크되면 실행 
 					
-					if(originprice < point){ //상품 총 금액(적립금 비포함)이 포인트 값보다 적으면 발생 
+					if(originprice < accpoint){ //상품 총 금액(적립금 비포함)이 포인트 값보다 적으면 발생 
 						$("#allDepositCheckboxV2").prop("checked", false); 
 							alert("주문 금액 5만원 이상 시 적립금 사용이 가능합니다.");
 					
@@ -151,7 +159,15 @@
 						$("#allDepositCheckboxV2").prop("checked", false);
 						alert("주문 금액 5만원 이상 시 적립금 사용이 가능합니다.");
 						
-					}else{ //포인트값보다 크고, 5만원 이상이면 발생 
+					}else if(point == 0){
+						 alert("적립금이 존재하지 않습니다.");
+						 $("#allDepositCheckboxV2").prop("checked", false);
+						 $("#pointId").focus();
+						 
+					}else if(point > accpoint){ //포인트값보다 크고, 5만원 이상이면 발생 
+						alert("적립금이 부족합니다.");
+						$("#allDepositCheckboxV2").prop("checked", false);
+					}else{
 						$("#point2").html(numformat_point); //결제 정보 적립금 부분에 html태그 뿌려줌 
 						$("#totalPrice").text(res+ "원"); //포인트가 차감된 전체 금액 html태그 뿌려줌 
 						$("#allDepositCheckboxV1").prop("disabled", true);
@@ -164,7 +180,6 @@
 					$("#pointId").attr("readonly", false);
 				}
 			});
-			
 		});
 	 function getpointValues(){ //포인트 입력값 받는 함수 실행 
 			
@@ -178,14 +193,18 @@
 			
 		 if(originprice2 < pointById){ //상품 총 금액(적립금 비포함)이 포인트 값보다 적으면 발생 
 			$("#allDepositCheckboxV1").prop("checked", false); 
-				alert("적립금은 상품 금액을 초과할 수 없습니다.");
+				alert("주문 금액 5만원 이상 시 적립금 사용이 가능합니다.");
 		 }else if(originprice2 < 50000){
 			 $("#allDepositCheckboxV1").prop("checked", false); 
-			 	alert("주문 금액 5만원 이상 시 적립금 사용이 가능합니다.");
+			 alert("주문 금액 5만원 이상 시 적립금 사용이 가능합니다.");
 		 }else if(pointById == 0 || $("#pointById").val() == ""){
 			 alert("적립금이 입력되지 않았습니다.");
 			 $("#allDepositCheckboxV1").prop("checked", false);
 			 $("#pointId").focus();
+		 }else if(pointById > acc_point2){
+			 $("#pointId").val('');
+			 alert("적립금이 부족합니다.");
+			 $("#allDepositCheckboxV1").prop("checked", false);
 		 }else{
 			 $("#point2").text("-" + pointById); //결제 정보 적립금 부분에 text태그 뿌려줌 
 			 $("#totalPrice").text(priceRes + "원"); //포인트가 차감된 전체 금액 text태그 뿌려줌 
@@ -223,9 +242,6 @@
 			alert("동의란을 체크하세요.");
 		}else if($("#kakaoV2").prop("checked")==false){
 			alert("결제수단을 체크해주세요.");
-		}else if($("#user_sameV2").is(":checked") == false){
-			alert("주소를 입력해주세요.");
-			$("#acc_name").prop("required", true);
 		}else{
 			var winHeight = document.body.clientHeight;	// 현재창의 높이
 			var winWidth = document.body.clientWidth;	// 현재창의 너비
@@ -440,14 +456,14 @@
 						<dd class="mb-22">
 							<div class="col-2">
 								<input name="firstName" type="text" placeholder="이름을 입력하세요."
-									maxlength="10" id = "acc_name" value="<%=acc.getAcc_name()%>">
+									maxlength="10" readonly = "readonly" id = "acc_name" value="<%=acc.getAcc_name()%>">
 							</div>
 						</dd>
 						<dt></dt>
 						
 						<dd class="min-height-auto">
 							<div class="col-2 col-3 radio-wrap">
-								<span class="radio"> 
+							<!-- 	<span class="radio"> 
 								<input name="deliveryType" type="radio" id="user_sameV2" 
 								value="SAME_CUSTOMER_ADDRESS"><i></i>&nbsp;
 
@@ -455,7 +471,7 @@
 
 								<span class="radio"> 
 								<input name="deliveryType" type="radio" id="cvs_addrV2" value="CVSNET">
-								</span>
+								</span> -->
 							</div>
 						</dd>
 
@@ -467,7 +483,9 @@
 								<div class="row">
 									<div class="col-2">
 										<input type="hidden" id="confmKey" name="confmKey" value="">
-										<input type="text" id="zipNo" name="zipNo" placeholder="우편번호" />
+										<input type="text" id="zipNo" name="zipNo" 
+										value = "<%=acc.getAcc_zipcode() %>" placeholder="우편번호" 
+										readonly = "readonly"/>
 									</div>
 									<div class="col-3">
 										<button type="button" class="btn btn-line btn-small"
@@ -478,11 +496,11 @@
 								<div class="row">
 									<input type="text" id="roadAddrPart1" name="roadAddrPart1"
 										class="inputTypeText" placeholder="도로명주소" readonly="readonly"
-										value="" />
+										value="<%=acc.getAcc_addr() %>" />
 								</div>
 								<div class="row">
 									<input type="text" id="addrDetail" name="addrDetail"
-										placeholder="상세주소" value="" />
+										placeholder="상세주소" readonly="readonly" value="<%=acc.getAcc_addr2() %>" />
 								</div>
 							</dd>
 						</div>
@@ -505,24 +523,24 @@
 								<input type="hidden" name="cellPhone" id = "cellPhone" value = ""> 
 								<select name="cellPhone1" id = "cellphone">
 									<option value="010">010</option>
-									<option value="011">011</option>
+									<!-- <option value="011">011</option>
 									<option value="016">016</option>
 									<option value="017">017</option>
 									<option value="018">018</option>
-									<option value="019">019</option>
+									<option value="019">019</option> -->
 								</select> 
 								<input name="cellPhone2" type="tel" maxlength="4"
-									value="<%=arr[1]%>"> 
+									value="<%=arr[1]%>" readonly="readonly"> 
 								<input name="cellPhone3"
-									type="tel" maxlength="4" value="<%=arr[2]%>">
+									type="tel" maxlength="4" value="<%=arr[2]%>" readonly="readonly">
 							</div>
 						</dd>
 						<!-- 배송 메모 -->
-						<dt>
+						<!-- <dt>
 							배송메모<em></em>
 						</dt>
 
-						<!-- 배송시 요청사항 -->
+						배송시 요청사항
 						<dd>
 							<div class="row">
 								<span class="select col-2"> <select name="deliveryMemo">
@@ -534,18 +552,19 @@
 								</select>
 								</span>
 							</div>
-						</dd>
+						</dd> -->
 					</dl>
 				</div>
 			</form>
 
 			<!-- 포인트 사용 -->
-			<form>
+			<form onsubmit="return false">
 				<div class="order-write sale-select">
 					<br>
 					<dt>적립금</dt>
 					<div>
-						<input type="text" maxlength = "5" id = "pointId" class = "pointClass" name = "pointName" style="text-align: right;" />
+						<input type="text" maxlength = "5" id = "pointId" class = "pointClass" 
+						placeholder = "<%=acc.getAcc_point()%>" name = "pointName" style="text-align: right;" />
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						
 						<span class="checkbox">
@@ -582,12 +601,12 @@
 							<li><input type="radio" id="kakaoV2" name="paymentMethod"
 								value="KAKAOPAY"><label for="kakaoV2" class="kakao">카카오페이</label></li>
 						</ul>
-					
+					<!-- 
 						<span class="checkbox keep-payment"> 
 						<input name="keepPayment" type="checkbox" id="keepPayment" value="">
 							<i></i>
 						</span> 
-						<label for="keepPayment">지금 선택한 결제수단을 다음에도 사용</label>
+						<label for="keepPayment">지금 선택한 결제수단을 다음에도 사용</label> -->
 					</div>
 					
 
@@ -668,7 +687,7 @@
 				<div style="min-height: 771.063px;" id="paymentform">
 					<div class="react-sticky" style="transform: translateZ(0px);">
 						<article class="sticky-menu"
-							style="position: relative; bottom: 800px;">
+							style="position: relative; bottom: 800px; margin-top: 110px;">
 
 
 							<div class="sticky-bill">
@@ -679,7 +698,7 @@
 										<strong>주문상품금액</strong>
 										<span>
 										<fmt:formatNumber>${sum}
-										</fmt:formatNumber></span>
+										</fmt:formatNumber>원</span>
 									</div>
 								</div>
 								<div class="sale-pay">

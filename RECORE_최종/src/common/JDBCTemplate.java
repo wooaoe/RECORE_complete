@@ -20,9 +20,9 @@ public class JDBCTemplate {
 			e.printStackTrace();
 		}
 		
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
-		String id = "RECORE";
-		String pw = "RECORE";
+		String url = "jdbc:oracle:thin:@semirecore.cumgueszhsth.us-east-1.rds.amazonaws.com:1521:ORCL";
+		String id = "semirecore";
+		String pw = "recore1234";
 		
 		Connection con = null;
 		

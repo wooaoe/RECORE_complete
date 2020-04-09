@@ -54,7 +54,6 @@ function checkval(){
 	var phone = $("#userPhone").val();
 	var phonNumberCheck = RegExp(/^01[0179][0-9]{7,8}$/);
 	
-	
 	if(phone.length == 11 && phonNumberCheck.test(phone)){
 		$("#em").hide();
 		$("#userBirth").focus();

@@ -126,8 +126,6 @@
             <div class="col-6">
               <div class="d-flex ml-auto" style = "position:relative; left: 100px;" >
                <form id="search" method="get" action="#" class="d-flex align-items-center ml-auto mr-4">
-                	<!-- <input type="text" name="query" placeholder="Search" />
-              		<a href="#search"> &nbsp; Search</a>  -->
               	</form>
               	
               	<!-- 로그인 안되어있을 때 -->
@@ -311,19 +309,28 @@
         	
         	<div class="" style="width:100%; margin-top:20px; text-align :center; padding-left: 44%;">
         		
-        		<c:choose>
-        			<c:when test="${page eq 1}">
-		        		<div class="prodButtonWhite">1</div>
-		        		<div class="prodButton" onclick="location.href='Product.do?command=ChildSelectAll&catdno=${child.get(i).getProd_catd()}&pageno=2'">2</div>
-		        		<div class="prodButton" onclick="location.href='Product.do?command=ChildSelectAll&catdno=${child.get(i).getProd_catd()}&pageno=3'">3</div>
-        			</c:when>
-        			<c:otherwise>
-		        		<div class="prodButton" onclick="location.href='Product.do?command=ChildSelectAll&catdno=${child.get(i).getProd_catd()}&pageno=${page-1 }'">${page-1 }</div>
-        				<div class="prodButtonWhite" onclick="location.href='Product.do?command=ChildSelectAll&catdno=${child.get(i).getProd_catd()}&pageno=${page }'">${page}</div>
-		        		<div class="prodButton" onclick="location.href='Product.do?command=ChildSelectAll&catdno=${child.get(i).getProd_catd()}&pageno=${page+1 }'">${page+1}</div>
-        			</c:otherwise>
-        			
-        		</c:choose>
+        	<% 
+             	 int listsize = child.size();
+            %>
+              
+              <c:choose>
+                 <c:when test="${child.size() <= 9 }">
+                   <div class="prodButtonWhite">1</div>
+                 </c:when>
+                 <c:when test="${child.size() > 9 }">
+                    <c:forEach begin="1" end="<%=((listsize-1)/9)+1 %>" var="j">
+                       <c:if test="${j == page }">
+        				<div class="prodButtonWhite" onclick="location.href='Product.do?command=ChildSelectAll&catdno=${child.get(i).getProd_catd()}&pageno=${j}'">${j}</div>
+                       </c:if>
+                       <c:if test="${j != page }">
+		        		<div class="prodButton" onclick="location.href='Product.do?command=ChildSelectAll&catdno=${child.get(i).getProd_catd()}&pageno=${j}'">${j}</div>
+                       </c:if>
+                    </c:forEach>
+                 </c:when>
+              </c:choose> 
+              
+              
+              
         	</div>
         </div>
          

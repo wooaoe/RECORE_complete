@@ -1,3 +1,5 @@
+<%@page import="com.mvc.vo.Vo_Product"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -9,6 +11,8 @@
 	<%@ page import="com.mvc.vo.Vo_Account" %>
 	
 	<% Vo_Category_Detail cdvo = (Vo_Category_Detail)request.getAttribute("cdvo");%>
+    
+    
     
 <!DOCTYPE html>
 <html lang="en">
@@ -262,7 +266,7 @@
             <span class = "mb-0"><b><fmt:formatNumber value="${plist.get(i).getProd_price()}" groupingUsed="true"></fmt:formatNumber>원</b></span>
           	<br><br>
           </div>
-          </c:otherwise>    
+          </c:otherwise>
           </c:choose>
           </c:forEach>
          
@@ -270,22 +274,29 @@
         
         <div class="row" style="text-align: center;">
         	
-        	<div class="" style="width:100%; margin-top:20px; text-align :center; padding-left: 44%;">
+        	<div class="" style="width:100%; margin-top:20px; text-align :center; padding-left: 35%;">
         		
-        		<c:choose>
-        			<c:when test="${page eq 1 }">
-		        		<div class="prodButtonWhite">1</div>
-		        		<div class="prodButton" onclick="location.href='Product.do?command=ProdSelectAll&pageno=2'">2</div>
-		        		<div class="prodButton" onclick="location.href='Product.do?command=ProdSelectAll&pageno=3'">3</div>
-		        		<div class="prodButton" onclick="location.href='Product.do?command=ProdSelectAll&pageno=4'">4</div>
-        			</c:when>
-        			<c:otherwise>
-		        		<div class="prodButton" onclick="location.href='Product.do?command=ProdSelectAll&pageno=${page-1 }'">${page-1 }</div>
-        				<div class="prodButtonWhite" onclick="location.href='Product.do?command=ProdSelectAll&pageno=${page }'">${page }</div>
-		        		<div class="prodButton" onclick="location.href='Product.do?command=ProdSelectAll&pageno=${page+1 }'">${page+1}</div>
-		        		<div class="prodButton" onclick="location.href='Product.do?command=ProdSelectAll&pageno=${page+2 }'">${page+2}</div>
-        			</c:otherwise>
-        		</c:choose>
+        		<% 
+        		 List<Vo_Product> plist = (List)request.getAttribute("plist");
+             	 int listsize = plist.size();
+           	    %>
+              
+              <c:choose>
+                 <c:when test="${plist.size() <= 9 }">
+                   <div class="prodButtonWhite">1</div>
+                 </c:when>
+                 <c:when test="${plist.size() > 9 }">
+                    <c:forEach begin="1" end="<%=((listsize-1)/9)+1 %>" var="j">
+                       <c:if test="${j == page }">
+        				<div class="prodButtonWhite" onclick="location.href='Product.do?command=ProdSelectAll&pageno=${j}'">${j}</div>
+                       </c:if>
+                       <c:if test="${j != page }">
+		        		<div class="prodButton" onclick="location.href='Product.do?command=ProdSelectAll&pageno=${j}'">${j}</div>
+                       </c:if>
+                    </c:forEach>
+                 </c:when>
+              </c:choose> 
+              
         	</div>
         </div>
      

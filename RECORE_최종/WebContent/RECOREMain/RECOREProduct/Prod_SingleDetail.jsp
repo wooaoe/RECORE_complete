@@ -82,6 +82,7 @@
     }   
 </style>
 
+
 	<script type="text/javascript">
 	
 		$(document).ready(function(){
@@ -438,7 +439,7 @@
 									
 									<input id="number"
 										type="text" value="0" name="product-quantity"
-										class="form-control" style="display: block;"> 
+										class="form-control" readonly="readonly" style="display: block;"> 
 										
 									<span class="input-group-addon bootstrap-touchspin-postfix"
 										style="display: none;">
@@ -469,40 +470,98 @@
 						
 						<br><br>
 						
-						<input type = "submit" value = "바로구매" id = "pay" 
-						class = "btn btn-main mt-20" />&nbsp;&nbsp; 
+						<c:if test="${empty vo}">
+						<input type = "button" value = "바로구매" id = "pay" 
+						class = "btn btn-main mt-20" onclick = "disabledbtn();"/>&nbsp;&nbsp; 
 						
 						<input type = "button" value = "장바구니" id = "cart" 
-						onclick="insertCart();"
-							class="btn btn-main mt-20">&nbsp;&nbsp;
+							class="btn btn-main mt-20" disabled="disabled">&nbsp;&nbsp;
 						
 						<input type = "button" value = "관심상품" id = "wish"
-						onclick="insertWish();"
-						class="btn btn-main mt-20">
+						   class="btn btn-main mt-20" disabled="disabled">
+						</c:if>
+						
+						<c:if test="${!empty vo}">
+						<input type = "button" value = "바로구매" id = "pay" 
+                  		class = "btn btn-main mt-20" onclick="paypay();"/>&nbsp;&nbsp; 
+						
+						<input type = "button" value = "장바구니" id = "cart" 
+							onclick="insertCart();" class="btn btn-main mt-20">&nbsp;&nbsp;
+						
+						<input type = "button" value = "관심상품" id = "wish"
+						onclick="insertWish();" class="btn btn-main mt-20">
+						</c:if>
+						
+						<script type="text/javascript">
+						function disabledbtn()   {
+							   var Del = confirm("해당 기능은 회원만 이용 가능합니다.\n로그인창으로 이동하시겠습니까?")
+							    if (Del == true){
+							        location.href='Account_Controller.do?command=loginpage';
+							    } else {
+							        alert("취소 되었습니다.")
+							    }
+							}
+						</script>
 						
 						</form>
 						
 					 	<script type="text/javascript">
 							
-					 		function insertCart(){
-								
-								 for(var i = 0; i < <%=povo.size()%>; i++){
-									var prod_id = ${povo.get(i).getProd_id()};
-								}
-								var prod_amount = $("#number").val(); 
-								var acc_no = ${vo.acc_no};
-								var prod_no = ${pvo.prod_no};
-								
-									location.href = "Product.do?command=insertCart&prod_id=" + prod_id 
-									+ "&prod_amount=" + prod_amount + "&acc_no=" + acc_no + "&pseq=" + prod_no;
-								
-							}
-							function insertWish(){
-								
-								var prod_no = ${pvo.prod_no};
-								
-									location.href = "Product.do?command=insertWish&pseq=" + prod_no;
-							} 
+
+	                      function paypay(){
+	                         
+	                         var selco = $("#selcolor option:selected").text();
+	                         var selsi = $("#selsize  option:selected").text();
+	                         var selam = $("#number").val();
+	                         
+	                          if((selco == '선택') || (selsi == '선택') || (selam == 0)){
+	                             
+	                            alert("옵션을 바르게 설정해주세요.");
+	                          }else{
+	                             
+	                             $("#form").submit();
+	                             
+	                          }
+	                         
+	                      }
+	                   
+	                      function insertCart(){
+	                        
+	                         
+	                         var selco = $("#selcolor option:selected").text();
+	                         var selsi = $("#selsize  option:selected").text();
+	                         var selam = $("#number").val();
+	                         
+	                          if((selco == '선택') || (selsi == '선택') || (selam == 0)){
+	                             
+	                            alert("옵션을 바르게 설정해주세요.");
+	                             
+	                          }else{
+	                             
+	                            
+	                            for(var i = 0; i < <%=povo.size()%>; i++){
+	                              var prod_id = ${povo.get(i).getProd_id()};
+	                           }
+	                           var prod_amount = $("#number").val(); 
+	                           var acc_no = ${vo.acc_no};
+	                           var prod_no = ${pvo.prod_no};
+	                           
+	                           location.href = "Product.do?command=insertCart&prod_id=" + prod_id 
+	                              + "&prod_amount=" + prod_amount + "&acc_no=" + acc_no + "&pseq=" + prod_no;
+	                             
+	                          }
+	                         
+	                         
+	                         
+	                        
+	                     }
+	                     function insertWish(){
+	                        
+	                        var prod_no = ${pvo.prod_no};
+	                        
+	                           location.href = "Product.do?command=insertWish&pseq=" + prod_no;
+	                     } 
+	                  
 						
 						</script>
 					</div>
@@ -511,34 +570,43 @@
 
 
 			<!-- @@ Detail / Q&A / Review @@ -->
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="tabCommon mt-20">
-						<br><br><br><br>
-						<ul class="nav nav-tabs" style = "font-size: 11pt;">
-							<li class="active">
-							<a data-toggle="tab" href="#details"
-								aria-expanded="true">DETAIL</a></li>
-							<li class="">
-							<a data-toggle="tab" href="#reviews"
-								aria-expanded="false">REVIEW</a></li>
-							<li class="">
-							<a data-toggle="tab" href="#qna"
-								aria-expanded="false">Q&A</a></li>
-						</ul>
-						<div class="tab-content patternbg">
-							
+			         <div class="row">
+            <div class="col-xs-12">
+               <div class="tabCommon mt-20">
+                  <br><br><br><br>
+                  <ul class="nav nav-tabs" style = "font-size: 11pt;">
+                     <li class="active">
+                     <a data-toggle="tab" href="#details"
+                        aria-expanded="true">DETAIL</a></li>
+                     <li class="">
+                     <a data-toggle="tab" href="#reviews"
+                        aria-expanded="false">REVIEW</a></li>
+                     <li class="">
+                     <a data-toggle="tab" href="#qna"
+                        aria-expanded="false">Q&A</a></li>
+                  </ul>
+                  <div class="tab-content patternbg">
+                     
 
-							<!-- @@ 상세 내용 이미지 들어가는 곳 @@ -->
-							<c:forEach begin="1" end="${pvo.prod_con_count}" step="1" var="i">
-								<div id="details" class="tab-pane fade active in">
-									<p>
-										<img style="width: 900px; position: relative; left: 80px;"
-											src="<%=request.getContextPath()%>/RECOREMain/RECOREProduct/product/${pvo.prod_no}/con_img${i}.png">
-									</p>
-								</div>
-							</c:forEach>
-
+                     <!-- @@ 상세 내용 이미지 들어가는 곳 @@ -->
+                     <c:forEach begin="1" end="${pvo.prod_con_count}" step="1" var="i">
+                        <div id="details" class="tab-pane fade active in">
+                           <p>
+                              <img style="width: 900px; position: relative; left: 80px;"
+                                 src="<%=request.getContextPath()%>/RECOREMain/RECOREProduct/product/${pvo.prod_no}/con_img${i}.png">
+                           </p>
+                        </div>
+                     </c:forEach>
+               
+               
+                  <script type="text/javascript">
+                     
+                     $(function(){
+                        console.log(<%=request.getAttribute("reviewlist") %>);
+                     })
+                     
+                  
+                  </script>
 
                      <!-- @@리뷰 상세@@ -->
                      <div id="reviews" class="tab-pane fade">
@@ -579,17 +647,10 @@
                               
                               <%
                                  }
-                              }else if(reviewlist.get(0).getAcc_id() == null){
-                                 
-                              %>
-                              <p style="margin-bottom: 10px; text-align: center;">작성된 리뷰가 없습니다.</p>
-                              <%
-                                 
-                              }else{   
+                              }else if(reviewlist.size() <= 5 && reviewlist.size() > 0){
                                  for(int i=0; i<reviewlist.size() ; i++){
                                  
                               %>
-                              
                               <!-- Comment Item start 1-->
                               <li class="media"><a class="pull-left" href="#"> 
                                  <img class="media-object comment-avatar" src="imagesProd/blog/avater-1.jpg" 
@@ -599,7 +660,6 @@
                                  <div class="media-body">
                                     <div class="comment-info">
                                     
-                                       
                                        <!-- @@고객 아이디@@ -->
                                        <span style="font-size: 10pt; font-family: 100"><%=reviewlist.get(i).getAcc_id() %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                        <!-- @@ 글 작성 시간 @@ -->
@@ -616,11 +676,15 @@
                                  </div>
                                  <a class="pull-left" href="#"> 
                                  <img class="media-object comment-avatar" src="imagesProd/blog/avater-1.jpg" alt="" width="50" height="50" />
-                              	</a>
+                                 </a>
                               </li>
-                              
-                              <%      
+                              <%
                                  }
+                              }else if(reviewlist.size() == 0){   
+
+                              %>
+                                 <p style="margin-bottom: 10px; text-align: center;">작성된 리뷰가 없습니다.</p>
+                              <%      
                               }
                               %>
                               
@@ -677,9 +741,11 @@
                      </div>
 
 
-				</div>
-			</div>
-		</div>
+            </div>
+         </div>
+      </div>
+   </div>
+   </div>
 	</section>
 
 

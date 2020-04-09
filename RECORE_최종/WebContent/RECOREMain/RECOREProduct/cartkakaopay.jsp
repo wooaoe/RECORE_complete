@@ -79,7 +79,6 @@ function checkval2(){
 			var arr_prod_id = $("#prod_id").val();
 			var test_point = <%=point%>;
 			var tmp = $("#acc_addrs").val();
-			alert(tmp);
 				
 			var url = "Product.do?command=cartkakaocall2&amount=" + arr_amount + "&totalPrice=" + arr_totalPrice + 
 							"&prod_id=" + arr_prod_id + "&acc_addrs=" + tmp + "&acc_point=" + test_point; 

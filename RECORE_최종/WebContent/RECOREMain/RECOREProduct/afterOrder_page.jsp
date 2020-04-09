@@ -74,6 +74,9 @@
     
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     
+    	<!-- @@ RECORE favicon @@  -->
+    <link rel="icon" href="<%=request.getContextPath()%>/images/recorefavi.png">
+    
   </head>
   
   <body id = "body">
@@ -196,12 +199,12 @@
 			<td colspan="7">
 				<span class="gLeft">[기본배송]</span> 상품구매금액 
 				<strong>
-				<span class="displaynone"> (0)</span>
+				<span class="displaynone"><%=totalPrice%></span>
 				</strong>
 				<span class="displaynone"></span>
 				 + 배송비 0 <span class="displaynone"> - 상품할인금액&nbsp;${ordernum.order_point}</span> = 합계 : 
 				 <strong class="txtEm gIndent10">
-		 		<span class="txt18">${prod_order.order_price}</span>원
+		 		<span class="txt18">${prod_order.order_price * prod_order.order_amount}</span>원
 		 		</strong> 
 		 		<span class="displaynone"></span>
 			</td>
@@ -224,7 +227,7 @@
             
             <td class="right">
               <div class="displaynone">
-              <strong> <fmt:formatNumber>${pvo.prod_price}
+              <strong> <fmt:formatNumber>${prod_order.order_price}
 			 </fmt:formatNumber>원</strong>
               <div class="displaynone">
               </div>
@@ -235,7 +238,7 @@
             <td><span class="txtInfo">-</span></td>
             <td><div class="txtInfo">기본배송</div></td>
             <td class="right">
-			<strong>${prod_order.order_price}</strong>
+			<strong><%=totalPrice %></strong>
 			
 			<div class="displaynone"></div>
 			</td>
@@ -351,10 +354,10 @@
 		<th scope="row">휴대전화</th>
 		<td><span>${vo.acc_phone}</span></td>
 		</tr>
-		<tr>
+		<!-- <tr>
 		<th scope="row">배송메시지</th>
 		<td></td>
-	    </tr>
+	    </tr> -->
 		</tbody>
 	</table>
 	
@@ -364,7 +367,7 @@
 	<div class="ec-base-button">
 	        
         <span class="gRight">
-            <a href="<%=request.getContextPath()%>/RECOREMain/index.html" class="btnNormalFix sizeL">쇼핑계속하기</a>
+            <a href="<%=request.getContextPath()%>/Product.do?command=ProdSelectAll&pageno=1" class="btnNormalFix sizeL">쇼핑계속하기</a>
             <a href="<%=request.getContextPath()%>/mypage.do?command=orderlist&pageno=1" class="btnSubmitFix sizeL">주문확인하기</a>
         </span>
     </div>

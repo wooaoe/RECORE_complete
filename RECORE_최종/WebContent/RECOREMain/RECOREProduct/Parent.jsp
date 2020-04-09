@@ -28,6 +28,7 @@
 <title>RECORE - <%=kinds%></title>
 <meta charset="utf-8">
     <%@ include file = "/head.jsp" %>
+   
     <!-- @@ RECORE favicon @@  -->
     <link rel="icon" href="<%=request.getContextPath()%>/images/recorefavi.png">
     
@@ -278,20 +279,30 @@
         <div class="row" style="text-align: center;">
         	
         	<div class="" style="width:100%; margin-top:20px; text-align :center; padding-left: 44%;">
+        	
         		
-        		<c:choose>
-        			<c:when test="${page eq 1}">
-		        		<div class="prodButtonWhite">1</div>
-		        		<div class="prodButton" onclick="location.href='Product.do?command=ParentSelectAll&catdid=${cdlist.get(i).getCatd_id()}&pageno=2'">2</div>
-		        		<div class="prodButton" onclick="location.href='Product.do?command=ParentSelectAll&catdid=${cdlist.get(i).getCatd_id()}&pageno=3'">3</div>
-        			</c:when>
-        			<c:otherwise>
-		        		<div class="prodButton" onclick="location.href='Product.do?command=ParentSelectAll&catdid=${cdlist.get(i).getCatd_id()}&pageno=${page-1 }'">${page-1 }</div>
-        				<div class="prodButtonWhite" onclick="location.href='Product.do?command=ParentSelectAll&catdid=${cdlist.get(i).getCatd_id()}&pageno=${page }'">${page }</div>
-		        		<div class="prodButton" onclick="location.href='Product.do?command=ParentSelectAll&catdid=${cdlist.get(i).getCatd_id()}&pageno=${page+1 }'">${page+1}</div>
-        			</c:otherwise>
-        			
-        		</c:choose>
+        		 <% 
+             	 int listsize = parent.size();
+             	 %>
+              
+              <c:choose>
+                 <c:when test="${parent.size() <= 9 }">
+                   <div class="prodButtonWhite">1</div>
+                 </c:when>
+                 <c:when test="${parent.size() > 9 }">
+                    <c:forEach begin="1" end="<%=((listsize-1)/9)+1 %>" var="j">
+                       <c:if test="${j == page }">
+        				<div class="prodButtonWhite" onclick="location.href='Product.do?command=ParentSelectAll&catdid=${cdlist.get(i).getCatd_id()}&pageno=${j}'">${j}</div>
+                       </c:if>
+                       <c:if test="${j != page }">
+		        		<div class="prodButton" onclick="location.href='Product.do?command=ParentSelectAll&catdid=${cdlist.get(i).getCatd_id()}&pageno=${j}'">${j}</div>
+                       </c:if>
+                    </c:forEach>
+                 </c:when>
+              </c:choose> 
+        		
+        		
+        	
         	</div>
         </div>
          
