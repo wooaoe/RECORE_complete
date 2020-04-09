@@ -583,9 +583,10 @@ input[type=text], input[type=password] {
 									<input id="email" name="email" class="lostInput" placeholder="" value="" type="text" />
 								</p>
 								
-								<div class="ec-base-button gColumn" style="padding: 40px 0px 10px">
+								<div class="ec-base-button gColumn" style="padding: 40px 0px 10px;">
 <!-- 									<input type="submit" class="btnSubmit sizeM" name="search" value="확인"> -->
-									<input type="button" class="btnSubmit sizeM" name="search" style="background-color:#A0D9D9;" value="확인">
+									<input type="button" class="btnSubmit sizeM" name="search" 
+									style="background-color:#A0D9D9; cursor: pointer;" value="확인">
 									<a href="../../Account_Controller.do?command=loginpage" class="btnClose sizeM">취소</a>
 								</div>
 							</fieldset>

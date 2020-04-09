@@ -10,29 +10,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Mypage_Mileage</title>
+<title>RECORE &mdash; MILEAGE</title>
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMy/Mypage_Mileage_CSS.css"/>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900"> 
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/fonts/icomoon/style.css">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900"> 
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/magnific-popup.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/jquery-ui.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/owl.carousel.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/owl.theme.default.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/bootstrap-datepicker.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/magnific-popup.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/jquery-ui.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/owl.carousel.min.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/owl.theme.default.min.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/bootstrap-datepicker.css">
     
     
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/fonts/flaticon/font/flaticon.css">
   
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/aos.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/aos.css">
 
     <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/styleMy.css">
 
-
+	<!-- @@ RECORE favicon @@  -->
+    <link rel="icon" href="<%=request.getContextPath()%>/images/recorefavi.png">
+	
 <style type="text/css">
   
   .testpadding{
@@ -124,11 +126,17 @@
 </head>
 <body id="body">
 <%	/* 총 사용 포인트 */
-	int acc_point = (int)request.getAttribute("acc_point");
+	int acc_point  = (int)request.getAttribute("acc_point"); //현재 적립금
 	List<Vo_Order_Num> list_order = (List<Vo_Order_Num>)request.getAttribute("list_order");
+	
 	int sum_point = 0;
-	for(int i=0;i<list_order.size();i++){
-		sum_point += list_order.get(i).getOrder_point();
+	
+	if(list_order.isEmpty()){
+		sum_point = 0;
+	}else{
+		for(int i=0;i<list_order.size();i++){
+			sum_point += list_order.get(i).getOrder_point();
+		}
 	}
 %>
 	
@@ -161,13 +169,14 @@
 								<strong class="title">총 적립금</strong> <span class="data"><span id="xans_myshop_summary_total_mileage"><fmt:formatNumber value="<%=acc_point%>" groupingUsed="true"></fmt:formatNumber>원</span>&nbsp;</span>
 							</li>
 			            	<li class="">
-								<strong class="title">사용가능 적립금</strong> <span class="data"><span id="xans_myshop_summary_avail_mileage"><fmt:formatNumber value="<%=acc_point - sum_point%>" groupingUsed="true"></fmt:formatNumber>원</span>&nbsp;</span>
+								<strong class="title">사용가능 적립금</strong> <span class="data"><span id="xans_myshop_summary_avail_mileage"><fmt:formatNumber value="<%=acc_point%>" groupingUsed="true"></fmt:formatNumber>원</span>&nbsp;</span>
 							</li>
 				            <li class="">
 								<strong class="title">사용된 적립금</strong> <span class="data"><span id="xans_myshop_summary_used_mileage"><fmt:formatNumber value="<%=sum_point%>" groupingUsed="true"></fmt:formatNumber>원</span>&nbsp;</span>
 							</li>
 				            <li class="">
 								<strong class="title">미가용 적립금</strong> <span class="data"><span id="xans_myshop_summary_unavail_mileage">0원</span>&nbsp;</span>
+								<!-- <strong class="title">미가용 적립금</strong> <span class="data"><span id="xans_myshop_summary_unavail_mileage">0원</span>&nbsp;</span> -->
 							</li>
 				            <!-- <li class="">
 								<strong class="title">환불예정 적립금</strong> <span class="data"><span id="xans_myshop_summary_returned_mileage">0원</span>&nbsp;</span>
@@ -194,21 +203,21 @@
 								<thead>
 									<tr>
 										<th scope="col">주문날짜</th>
-				                        <th scope="col">적립금</th>
 				                        <th scope="col">주문 번호</th>
+				                        <th scope="col">적립금</th>
 				                        <th scope="col">&nbsp;&nbsp;내용</th>
 			               		    </tr>
 		               		    </thead>
 								<tbody class="center">
-								<c:if test="${null eq list_order}">
-									<p class="message ">적립금 내역이 없습니다.</p>
-								</c:if>
+								<c:if test="${empty list_order}">
+                           			<tr><td colspan="4"><p class="message" style="border:0px">적립금 내역이 없습니다.</p></td></tr>
+                        		</c:if>
 								<c:if test="${null ne list_order}">
 									<c:forEach var="order" items="${list_order}" begin="${(page.rowContent * page.pageNo) - page.rowContent}" end="${(page.rowContent * page.pageNo) - 1}">
 										<tr class="">
 											<td>${order.order_date}</td>
-					                        <td class="right"><fmt:formatNumber value="${order.order_point}" groupingUsed="true"></fmt:formatNumber></td>
 					                        <td>${order.order_no}</td>
+					                        <td class="right" style = "text-align: center;"><fmt:formatNumber value="${order.order_point}" groupingUsed="true"></fmt:formatNumber>원</td>
 											<c:if test="${order.order_point ne 0}">
 						                        <td class="left" id="left">사용</td>
 							                </c:if>

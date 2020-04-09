@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%-- UserSession --%>
-<%Vo_Account sessionVo = (Vo_Account) session.getAttribute("vo");%>
+<%Vo_Account vo = (Vo_Account) session.getAttribute("vo");%>
 <%-- category --%>
 <% String catd = request.getParameter("catd"); %>
 
@@ -21,7 +21,7 @@
 <jsp:include page="/head.jsp"></jsp:include>
 
 </head>
-<body>
+<body id="body">
 	<header>
 		<jsp:include page="/header.jsp"></jsp:include>
 	</header>
@@ -139,7 +139,14 @@
 															<td class="title subject left txtBreak">${list.qna_title }<span class="txtEm"></span></td>
 														</c:otherwise>
 													</c:choose>
-													<td class="title">${list.qna_acc_id }</td>
+												  <c:choose>
+			                                          <c:when test="${list.qna_re_yn eq 'Y' }">
+			                                             <td class="title">관리자</td>
+			                                          </c:when>
+			                                          <c:otherwise>
+			                                             <td class="title">${list.qna_acc_id }</td>
+			                                          </c:otherwise>
+			                                       </c:choose>
 													<td class="title"><span class="txtNum">${list.qna_regdate }</span></td>
 													<td class="title"><span class="txtNum" id="${list.qna_no}">${list.qna_view_count }</span></td>
 													<td class="title displaynone"><span class="txtNum">0</span></td>
@@ -155,20 +162,20 @@
 														<p style="padding-right: 20px; text-align: right;" >
 															<c:choose>
 																<c:when test="${vo.acc_id eq list.qna_acc_id && list.qna_re_yn eq 'N'}">
-																	<input class="btnEmFix" type="button" value="수정" onclick="location.href='qna.do?command=qna_updateform&qna_no=${list.qna_no}'">
-																	<input class="btnEmFix" type="button" value="삭제" onclick="location.href='qna.do?command=qna_delete&qna_no=${list.qna_no}'">
+																	<input class="btnEmFix" type="button" value="수정" onclick="location.href='qna.do?command=qna_updateform&qna_no=${list.qna_no}'" style="cursor:pointer">
+																	<input class="btnEmFix" type="button" value="삭제" onclick="location.href='qna.do?command=qna_delete&qna_no=${list.qna_no}&reply=y'" style="cursor:pointer" >
 																</c:when>
 															</c:choose>
-																												<c:choose>
+															<c:choose>
 																<c:when test="${vo.acc_id eq 'm1' && list.qna_re_yn eq 'Y'}">
-																	<input class="btnEmFix" type="button" value="답글수정" onclick="location.href='qna.do?command=qna_answerupdateform&qna_no=${list.qna_no}'">
-																	<input class="btnEmFix" type="button" value="삭제" onclick="location.href='qna.do?command=qna_delete&qna_no=${list.qna_no}'">
+																	<input class="btnEmFix" type="button" value="답글수정" onclick="location.href='qna.do?command=qna_answerupdateform&qna_no=${list.qna_no}'" style="cursor:pointer">
+																	<input class="btnEmFix" type="button" value="삭제" onclick="location.href='qna.do?command=qna_delete&qna_no=${list.qna_no}&reply=n'" style="cursor:pointer">
 																</c:when>
 															</c:choose>
 															
 															<c:choose>
 																<c:when test="${vo.acc_id eq 'm1' && list.qna_re_yn eq 'N'}">
-																	<input class="btnEmFix" type="button" value="답글" onclick="location.href='qna.do?command=qna_answerwriteform&qna_pno=${list.qna_no}'">
+																	<input class="btnEmFix" type="button" value="답글" onclick="location.href='qna.do?command=qna_answerwriteform&qna_pno=${list.qna_no}'" style="cursor:pointer">
 																</c:when>
 															</c:choose>
 														</p>
@@ -185,7 +192,7 @@
 					<c:choose>
 						<c:when test="${not empty vo}">
 							<div style="text-align: right;">
-								<input class="btnEmFix" type="button" value="글쓰기" onclick="location.href='qna.do?command=qna_writeform'">
+								<input class="btnEmFix" type="button" value="글쓰기" onclick="location.href='qna.do?command=qna_writeform'" style="cursor:pointer">
 							</div>
 						</c:when>
 					</c:choose> 

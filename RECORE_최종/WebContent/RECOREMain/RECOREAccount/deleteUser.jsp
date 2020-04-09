@@ -104,8 +104,8 @@ function cancel(){
 <label style="font-size:small;">정말 탈퇴하시겠습니까?</label>
 <br/>
 <br/>
-<input type="button" class="btnSubmitFix sizeM" onclick="deleteUser()" value="회원탈퇴">
-<input type="button" class="btnEmFix sizeM" onclick="cancel()" value="취소">
+<input type="button" class="btnSubmitFix sizeM" onclick="deleteUser()" value="회원탈퇴" style = "background-color:#A0D9D9; cursor:pointer;">
+<input type="button" class="btnEmFix sizeM" onclick="cancel()" value="취소" style = "cursor:pointer;">
 <br/>
 </body>
 </html>

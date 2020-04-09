@@ -11,26 +11,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Mapage_WishList</title>
+<title>RECORE &mdash; WISHLIST</title>
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMy/Mypage_WishList_CSS.css"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900"> 
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/fonts/icomoon/style.css">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900"> 
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/magnific-popup.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/jquery-ui.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/owl.carousel.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/owl.theme.default.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/bootstrap-datepicker.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/magnific-popup.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/jquery-ui.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/owl.carousel.min.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/owl.theme.default.min.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/bootstrap-datepicker.css">
     
     
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/fonts/flaticon/font/flaticon.css">
   
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/aos.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/aos.css">
 
     <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/styleMy.css">
+	<!-- @@ RECORE favicon @@  -->
+    <link rel="icon" href="<%=request.getContextPath()%>/images/recorefavi.png">
 
 <style type="text/css">
   .ec-base-table thead th {
@@ -133,16 +135,32 @@
 	}
 	
 	function deleteChecked(){ //선택 상품 삭제
-		var Arr_prod_no = new Array();
-		for(var i=0;i<$('#chktd input').length;i++){
-			var box = document.getElementById("wish_idx_"+i);
-			if(box.checked){
-				Arr_prod_no.push(document.getElementById("wish_idx_"+i).value);
-			}
-		}
-		location.href="mypage.do?command=deletecheckedwish&arr_chk="+Arr_prod_no;
-		console.log(Arr_prod_id);
-	}
+	      var Arr_prod_no = new Array();
+	      var count = 0;
+	      
+	      for(var i=0;i<$('#chktd input').length;i++){
+	         var box = document.getElementById("wish_idx_"+i);
+	         if(box.checked){
+	            Arr_prod_no.push(document.getElementById("wish_idx_"+i).value);
+	         }else{
+	            count++;
+	         }
+	      }
+	      
+	      if(count == $('#chktd input').length){ //체크박스가 하나도 선택되어있지 않을 때
+	         alert("최소 1개 이상 선택해주세요");
+	      }else{
+	         location.href="mypage.do?command=deletecheckedwish&arr_chk="+Arr_prod_no;
+	      }
+	   }
+		
+	function deleteAll(){
+	      if($('#chktd input').length == 0){
+	         alert("삭제할 상품이 없습니다");
+	      }else{
+	         location.href="mypage.do?command=deletewishall";
+	      }
+	   }
 	
 	function pageMove(pageNo){ //페이징
 		location.href = "mypage.do?command=wishlist&pageno="+pageNo;
@@ -260,7 +278,7 @@
 				        <!-- <a href="#none" class="btnNormal" onclick="NewWishlist.basket();">장바구니 담기</a> -->
 				    </span>
 					<span class="gRight">
-				        <a href="mypage.do?command=deletewishall" class="btnSubmitFix sizeM" style="background-color:#A0D9D9;">관심상품 비우기</a>
+				        <a href="#none" class="btnSubmitFix sizeM" onclick="deleteAll();" style="background-color:#A0D9D9;">관심상품 비우기</a>
 				        <!-- <a href="#none" class="btnSubmitFix sizeM">전체상품주문</a> -->
 				        <!-- <a href="mypage.do?command=deletewishall" class="btnEmFix sizeM">관심상품 비우기</a> -->
 				    </span>

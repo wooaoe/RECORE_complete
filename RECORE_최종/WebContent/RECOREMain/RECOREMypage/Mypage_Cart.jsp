@@ -11,29 +11,30 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Mypage_Cart</title>
+<title>RECORE &mdash; CART</title>
 
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMy/Mypage_Cart_CSS.css"/>
 	
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900"> 
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/fonts/icomoon/style.css">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900"> 
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/magnific-popup.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/jquery-ui.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/owl.carousel.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/owl.theme.default.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/bootstrap-datepicker.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/magnific-popup.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/jquery-ui.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/owl.carousel.min.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/owl.theme.default.min.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/bootstrap-datepicker.css">
     
     
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/fonts/flaticon/font/flaticon.css">
   
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/aos.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/aos.css">
 
     <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/styleMy.css">
 
-	
+	<!-- @@ RECORE favicon @@  -->
+    <link rel="icon" href="<%=request.getContextPath()%>/images/recorefavi.png">
 
 
 <style type="text/css">
@@ -134,39 +135,76 @@
 	}
 	
 	function deleteChecked(){ //선택된 상품 삭제
-		var Arr_prod_id = new Array();
-		for(var i=0;i<$('#chktd input').length;i++){
-			var box = document.getElementById("basket_chk_id_"+i);
-			if(box.checked){
-				Arr_prod_id.push(document.getElementById("basket_chk_id_"+i).value);
-			}
-		}
-		location.href="mypage.do?command=deletecheckedcart&arr_chk="+Arr_prod_id;
-		console.log(Arr_prod_id);
-	}
+	      var Arr_prod_id = new Array();
+	      var count = 0;
+	      
+	      for(var i=0;i<$('#chktd input').length;i++){
+	         var box = document.getElementById("basket_chk_id_"+i);
+	         if(box.checked){
+	            Arr_prod_id.push(document.getElementById("basket_chk_id_"+i).value);
+	         }else{ //체크박스가 선택안되어있으면
+	            count++;
+	         }
+	      }
+	      
+	      if(count == $('#chktd input').length){ //체크박스가 하나도 선택되어있지 않을 때
+	         alert("최소 1개 이상 선택해주세요");
+	      }else{
+	         location.href="mypage.do?command=deletecheckedcart&arr_chk="+Arr_prod_id;
+	      }
+	   }
 	
 	function orderAll(){ //전체 주문
 		var Arr_order = new Array();
-		for(var i=0;i<$('#chktd input').length;i++){
-			Arr_order.push([$("#basket_chk_id_"+i).val(),$("#quantity_id_"+i).val()]);
-		}
-		
-		location.href="Product.do?command=cartOrder&Arr_order="+Arr_order;
+	      
+	      if($('#chktd input').length == 0){
+	         alert("주문할 상품이 없습니다");
+	      }else{
+	         for(var i=0;i<$('#chktd input').length;i++){
+	            Arr_order.push([$("#basket_chk_id_"+i).val(),$("#quantity_id_"+i).val()]);
+	         }
+	         
+	         location.href="Product.do?command=cartOrder&Arr_order="+Arr_order;
+	      }
 		
 	}
 	
 	function orderSelect(){ //선택 주문
-		var Arr_order = new Array();
-		
-		for(var i=0;i<$('#chktd input').length;i++){
-			if($("#basket_chk_id_"+i).is(":checked")){
-				Arr_order.push([$("#basket_chk_id_"+i).val(),$("#quantity_id_"+i).val()]);
-			}
-		}
-		
-		location.href="Product.do?command=cartOrder&Arr_order="+Arr_order;
-		
-	}
+	      var Arr_order = new Array();
+	      var count = 0;
+	      
+	      for(var i=0;i<$('#chktd input').length;i++){
+	         if($("#basket_chk_id_"+i).is(":checked")){
+	            Arr_order.push([$("#basket_chk_id_"+i).val(),$("#quantity_id_"+i).val()]);
+	         }else{
+	            count++;
+	         }
+	      }
+	      
+	      if(count == $('#chktd input').length){ //체크박스가 하나도 선택되어있지 않을 때
+	         alert("최소 1개 이상 선택해주세요");
+	      }else{
+	         location.href="Product.do?command=cartOrder&Arr_order="+Arr_order;
+	      }
+	      
+	   }
+	
+	function deleteAll(){
+	      if($('#chktd input').length == 0){
+	         alert("삭제할 상품이 없습니다");
+	      }else{
+	         location.href="mypage.do?command=deletecartall";
+	      }
+	   }
+	
+	function mileageMove(){
+	      if($('#chktd input').length == 0){
+	         location.href="mypage.do?command=mileage&pageno=1"
+	      }else{
+	         location.href="mypage.do?command=mileage&pageno=1"
+	      }
+	   }
+	
 	
 </script>
 </head>
@@ -192,7 +230,7 @@
 	            			<h3 class="title">혜택정보</h3>
 	            			<div class="description">
 	                			<ul class="mileage">
-									<li><a href="mypage.do?command=mileage&pageno=1">가용적립금 : <strong><fmt:formatNumber value="<%=vo_acc.getAcc_point() %>" groupingUsed="true"></fmt:formatNumber>원</strong></a></li>
+									<li><a href="#none" onclick="mileageMove();">가용적립금 : <strong><fmt:formatNumber value="${acc_point}" groupingUsed="true"></fmt:formatNumber>원</strong></a></li>
 	                			</ul>
 							</div>
 	        			</div>
@@ -334,7 +372,7 @@
 				            <a href="#none" class="btnEm" onclick="deleteChecked();"><i class="icoDelete"></i> 삭제하기</a>
 				        </span>
 						<span class="gRight">
-				            <a href="mypage.do?command=deletecartall" class="btnNormal">장바구니비우기</a>
+				            <a href="#none" class="btnNormal" onclick="deleteAll();">장바구니비우기</a>
 				        </span>
 					</div>
 					<!-- 총 주문금액 : 국내배송상품 -->

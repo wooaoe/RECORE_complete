@@ -10,26 +10,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Recore: mypage_main</title>
+<title>RECORE &mdash; MYPAGE MAIN</title>
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMy/Mypage_Main_CSS.css"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900"> 
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/magnific-popup.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/jquery-ui.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/owl.carousel.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/owl.theme.default.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/magnific-popup.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/jquery-ui.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/bootstrap-datepicker.css">
     
     
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/fonts/flaticon/font/flaticon.css">
   
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/aos.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/aos.css">
 
     <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/styleMy.css">
+	
 
 <style type="text/css">
   
@@ -107,6 +108,9 @@
   }
   
   </style>
+  <!-- @@ RECORE favicon @@  -->
+    <link rel="icon" href="<%=request.getContextPath()%>/images/recorefavi.png">
+  
 </head>
 
 <body id="body"> 
@@ -147,6 +151,7 @@
 %>
 	<!-- header -->
 	<%@ include file="/header.jsp" %>
+	
 	
 	
 	
@@ -229,31 +234,39 @@
 
 				<div id="myshopMain" class="xans-element- xans-myshop xans-myshop-main">
 					<ul>
-						<li class="shopMain order">
-		           			<h3><a href="<%=request.getContextPath()%>/mypage.do?command=orderlist&pageno=1"><strong>Order</strong><br><span>주문내역 조회</span></a></h3>
-		           			<p><a href="<%=request.getContextPath()%>/mypage.do?command=orderlist&pageno=1">고객님께서 주문하신 상품의<br> 주문내역을 확인하실 수 있습니다.</a></p>
-		        		</li>
-		        		<li class="shopMain profile">
-		            		<h3><a href="<%=request.getContextPath()%>/Account_Controller.do?command=editpage"><strong>Profile</strong><br><span>회원 정보</span></a></h3>
-		            		<p><a href="<%=request.getContextPath()%>/Account_Controller.do?command=editpage">회원이신 고객님의 개인정보를<br> 관리하는 공간입니다.</a></p>
-		        		</li>
-		        		<li class="shopMain board">
-		           			<h3><a href="<%=request.getContextPath()%>/mypage.do?command=fundinglist&pageno=1"><strong>Funding</strong><br><span>펀딩내역 조회</span></a></h3>
-		            		<p><a href="<%=request.getContextPath()%>/mypage.do?command=fundinglist&pageno=1">고객님께서 후원하신 펀딩의<br> 펀딩내역을 확인하실 수 있습니다.</a></p>
-		        		</li>
-		       			<li class="shopMain wishlist">
-		            		<h3><a href="<%=request.getContextPath()%>/mypage.do?command=wishlist&pageno=1"><strong>Wishlist</strong><br><span>관심 상품</span></a></h3>
-		            		<p><a href="<%=request.getContextPath()%>/mypage.do?command=wishlist&pageno=1">관심상품으로 등록하신<br> 상품의 목록을 보여드립니다.</a></p>
-		        		</li>
-		        		<li class="shopMain coupon ">
-		            		<h3><a href="<%=request.getContextPath()%>/mypage.do?command=mileage&pageno=1"><strong>Mileage</strong><br><span>마일리지</span></a></h3>
-		            		<p><a href="<%=request.getContextPath()%>/mypage.do?command=mileage&pageno=1">고객님이 보유하고 계신<br> 마일리지를 보여드립니다.</a></p>
-		        		</li>
-		        		<li class="shopMain board">
-		           			<h3><a href="<%=request.getContextPath()%>/mypage.do?command=boardlist&pageno=1"><strong>Board</strong><br><span>게시물 관리</span></a></h3>
-		            		<p><a href="<%=request.getContextPath()%>/mypage.do?command=boardlist&pageno=1">고객님께서 작성하신 게시물을<br> 관리하는 공간입니다.</a></p>
-		        		</li>
-		    		</ul>
+                  <li class="shopMain order">
+                          <h3><a href="<%=request.getContextPath()%>/mypage.do?command=orderlist&pageno=1"><strong>Order</strong><br><span>주문내역 조회</span></a></h3>
+                          <p><a href="<%=request.getContextPath()%>/mypage.do?command=orderlist&pageno=1">고객님께서 주문하신 상품의<br> 주문내역을 확인하실 수 있습니다.</a></p>
+                    </li>
+                    <c:if test="${vo.acc_no ne 1}">
+                    <li class="shopMain profile">
+                        <h3><a href="<%=request.getContextPath()%>/Account_Controller.do?command=editpage"><strong>Profile</strong><br><span>회원 정보</span></a></h3>
+                        <p><a href="<%=request.getContextPath()%>/Account_Controller.do?command=editpage">회원이신 고객님의 개인정보를<br> 관리하는 공간입니다.</a></p>
+                    </li>
+                    </c:if>
+                    <c:if test="${vo.acc_no ne 1}">
+                    <li class="shopMain board">
+                          <h3><a href="<%=request.getContextPath()%>/mypage.do?command=fundinglist&pageno=1"><strong>Funding</strong><br><span>펀딩내역 조회</span></a></h3>
+                        <p><a href="<%=request.getContextPath()%>/mypage.do?command=fundinglist&pageno=1">고객님께서 후원하신 펀딩의<br> 펀딩내역을 확인하실 수 있습니다.</a></p>
+                    </li>
+                    </c:if>
+                    <c:if test="${vo.acc_no ne 1}">
+                      <li class="shopMain wishlist">
+                        <h3><a href="<%=request.getContextPath()%>/mypage.do?command=wishlist&pageno=1"><strong>Wishlist</strong><br><span>관심 상품</span></a></h3>
+                        <p><a href="<%=request.getContextPath()%>/mypage.do?command=wishlist&pageno=1">관심상품으로 등록하신<br> 상품의 목록을 보여드립니다.</a></p>
+                    </li>
+                    </c:if>
+                    <c:if test="${vo.acc_no ne 1}">
+                    <li class="shopMain coupon ">
+                        <h3><a href="<%=request.getContextPath()%>/mypage.do?command=mileage&pageno=1"><strong>Mileage</strong><br><span>마일리지</span></a></h3>
+                        <p><a href="<%=request.getContextPath()%>/mypage.do?command=mileage&pageno=1">고객님이 보유하고 계신<br> 마일리지를 보여드립니다.</a></p>
+                    </li>
+                    </c:if>
+                    <li class="shopMain board">
+                          <h3><a href="<%=request.getContextPath()%>/mypage.do?command=boardlist&pageno=1"><strong>Board</strong><br><span>게시물 관리</span></a></h3>
+                        <p><a href="<%=request.getContextPath()%>/mypage.do?command=boardlist&pageno=1">고객님께서 작성하신 게시물을<br> 관리하는 공간입니다.</a></p>
+                    </li>
+                </ul>
 				</div>
 			</div>
 			</div>

@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Mypage_ReviewForm</title>
+<title>RECORE &mdash; REVIEW</title>
 
 <%-- # 현재 페이지  CSS / 순서 변경 금지 --%>
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
@@ -24,6 +24,10 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js "></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/RECOREMain/RECORECommunity/qna_manager/editor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/RECOREMain/RECORECommunity/qna_manager/qna/js/qna_boardwrite.js"></script>
+
+<!-- @@ RECORE favicon @@  -->
+    <link rel="icon" href="<%=request.getContextPath()%>/images/recorefavi.png">
+
 <style type="text/css">
 	 html{
   	scroll-behavior : smooth;
@@ -78,16 +82,18 @@
 										</tr>
 										<tr>
 											<th>평점</th>
-											<td><input type="number" name="rating" value="0" min="0" max="5" style="width:30px;"/>점</td>
+											<!-- <td><input type="number" name="rating" value="0" min="0" max="5" style="width:30px;"/>점</td> -->
+											<td>
+												<select name="rating">
+													<option value="0">0</option>
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+												</select>점
+											</td>
 										</tr>
-										<!-- <tr class="displaynone">
-											<th scope="row">이메일</th>
-											<td></td>
-										</tr>
-										<tr class="displaynone">
-											<th scope="row">평점</th>
-											<td></td>
-										</tr> -->
 										<%-- Smart Editor --%>
 										<tr>
 											<td colspan="2" style="padding: 0px;">

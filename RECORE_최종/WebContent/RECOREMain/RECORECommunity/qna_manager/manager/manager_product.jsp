@@ -44,7 +44,7 @@ var searchsubject = '<%=searchsubject%>';
 var keyword = '<%=keyword%>'; 
 </script>
 </head>
-<body>
+<body id="body">
 	<header>
 		<jsp:include page="/header.jsp"></jsp:include>
 	</header>

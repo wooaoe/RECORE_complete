@@ -9,28 +9,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Mypage_OrderList_Detail</title>
+<title>RECORE &mdash; ORDER DETAIL</title>
 	
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900"> 
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/fonts/icomoon/style.css">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900"> 
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/magnific-popup.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/jquery-ui.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/owl.carousel.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/owl.theme.default.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/bootstrap-datepicker.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/magnific-popup.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/jquery-ui.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/owl.carousel.min.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/owl.theme.default.min.css">
+   <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/bootstrap-datepicker.css">
     
     
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/fonts/flaticon/font/flaticon.css">
   
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/aos.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/css/aos.css">
 
     <link rel="stylesheet" href="<%=request.getContextPath()%>/RECOREMain/RECOREMypage/cssMain/styleMy.css">
 
 	
-
+	<!-- @@ RECORE favicon @@  -->
+    <link rel="icon" href="<%=request.getContextPath()%>/images/recorefavi.png">
 
 <style type="text/css">
   
@@ -138,6 +139,10 @@
 	function managerUpdate(order_no,prod_id){ //관리자 운송장 번호 등록
 		var tno = prompt('운송장 번호를 입력하세요','');
 		location.href = "mypage.do?command=managerupdate&tno="+tno+"&orderno="+order_no+"&prodid="+prod_id;
+	}
+	
+	function tnoNo(tno){ 
+	    alert("운송장 번호 : " + tno);
 	}
 </script>
 </head>
@@ -268,7 +273,7 @@
 										<tr class="">
 											<th scope="row">결제수단</th>
 	                    					<td>
-						                        <strong><span>카드 결제</span></strong>
+						                        <strong><span>카카오페이</span></strong>
 						                        <p>
 						                            <span>명세서에 나이스 올더게이트(으)로 표기됩니다</span>
 						                        </p>
@@ -336,9 +341,18 @@
 	                        				<td>
 	                        					<div class="txtInfo">기본배송</div>
 	                        				</td>
-					                        <td class="state">
-					                            <p class="txtEm">${olist.order_status}</p>
-					                        </td>
+					                        <td class="state"><!-- 수정@@ -->
+	                                           <p class="txtEm">
+	                                              <c:choose>
+	                                                 <c:when test="${olist.order_status eq '배송중'}">
+	                                                    <a href="" onclick="tnoNo(${olist.order_tno});">${olist.order_status}</a>
+	                                                 </c:when>
+	                                                 <c:otherwise>
+	                                                    ${olist.order_status}
+	                                                 </c:otherwise>
+	                                              </c:choose>
+	                                           </p>
+                                       		</td>
 					                        <td>
 					                        	<c:choose>
 					                        		<c:when test="<%=acc.getAcc_no() == 1 %>">
@@ -395,17 +409,9 @@
 						                    <td><span>${vo_order.order_addr}&nbsp;${vo_order.order_addr2}</span></td>
 						                </tr>
 										<tr>
-											<th scope="row">일반전화</th>
-						                    <td></td>
-					                	</tr>
-										<tr>
 											<th scope="row">휴대전화</th>
 					                    	<td><span>${vo_acc.acc_phone}</span></td>
 					                	</tr>
-										<tr>
-											<th scope="row">배송메시지</th>
-						                    <td><span></span></td>
-										</tr>
 									</tbody>
 								</table>
 							</div>

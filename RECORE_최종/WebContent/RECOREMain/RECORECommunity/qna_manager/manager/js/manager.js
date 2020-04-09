@@ -107,12 +107,26 @@ $(function(){
 			return;
 		}
 		if (confirm("변경 사항을 적용하시겠습니까?") == true){    
-			//상품아이디
-			var prod_id=$(this).parent().parent().children().eq(1).text();
-			//수정재고
-			var stock = $(this).parent().parent().children().eq(5).children().eq(0).val();
-			//url
-			var url = "manager.do?command=manager_stock_out&prod_id="+prod_id+"&stock="+stock;
+	        //상품아이디
+	         var prod_id=$(this).parent().parent().children().eq(1).text();
+	         //현재 재고
+	         var nowstock = $(this).parent().parent().children().eq(4).text();
+	         //수정재고
+	         var stock = $(this).parent().parent().children().eq(5).children().eq(0).val();
+	         //url
+	         var url = "manager.do?command=manager_stock_out&prod_id="+prod_id+"&stock="+stock;
+	         
+	         var sum = nowstock-stock;
+	         if(nowstock==0){
+	            alert("현재 재고가 부족합니다. 수량을 다시 확인해주세요.");
+	            return;
+	         }
+	         if(sum < 0 ){
+	            alert("현재 재고가 부족합니다. 수량을 다시 확인해주세요.");
+	            return;
+	         }
+	         
+
 			//수량 set
 			$.ajax({
 				url: url, 

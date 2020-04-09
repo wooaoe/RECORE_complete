@@ -203,7 +203,10 @@ $("input[name=passwd_confirm]").blur(function(){
 <title>회원 정보</title>
 
 <style type="text/css">
-
+	html{
+	 scroll-behavior: smooth;
+	}
+	
 </style>
 </head>
 <body id="body">
@@ -249,7 +252,7 @@ $("input[name=passwd_confirm]").blur(function(){
 											alt="필수" /></th>
 										<td><input id="member_id" name="member_id"
 											class="inputTypeText" placeholder=""
-											readonly="readonly" value="<%=vo.getAcc_id() %>" type="text" /> 
+											readonly="readonly" value="<%=vo.getAcc_id() %>" type="text" disabled="disabled"/> 
 											(첫글자 영문소문자, 영문소문자/숫자 조합, 4~16자)
 											</td>
 									</tr>
@@ -286,7 +289,7 @@ $("input[name=passwd_confirm]").blur(function(){
 											alt="필수" /></th>
 										<td><input id="name" name="name" 
 											class="ec-member-name" placeholder="" maxlength="30"
-											readonly="readonly" value="<%=vo.getAcc_name() %>" type="text" /></td>
+											readonly="readonly" value="<%=vo.getAcc_name() %>" type="text" disabled="disabled"/></td>
 									</tr>
 									
 									<tr class="">
@@ -296,13 +299,13 @@ $("input[name=passwd_confirm]").blur(function(){
 										<td>
 										<input id="birth_year" name="birth_year"
 											class="inputTypeText" placeholder="" maxlength="4" value="<%=vo.getAcc_birth().substring(0, 4) %>"
-											type="text" style="width: 40px;" readonly="readonly" /> 년 
+											type="text" style="width: 40px;" readonly="readonly" disabled="disabled"/> 년 
 											<input id="birth_month" name="birth_month"
 											class="inputTypeText" placeholder="" maxlength="2" value="<%=vo.getAcc_birth().substring(4, 6) %>"
-											type="text" style="width: 25px;" readonly="readonly" /> 월 
+											type="text" style="width: 25px;" readonly="readonly" disabled="disabled"/> 월 
 											<input id="birth_day" name="birth_day"
 											class="inputTypeText" placeholder="" maxlength="2" value="<%=vo.getAcc_birth().substring(6, 8) %>"
-											type="text" style="width: 25px;" readonly="readonly" /> 일 
+											type="text" style="width: 25px;" readonly="readonly" disabled="disabled"/> 일 
 											
 											<!-- <span class="gIndent20 ">
 											<input id="is_solar_calendar0" name="is_solar_calendar" value="T" type="radio" checked="checked" />
@@ -354,7 +357,7 @@ $("input[name=passwd_confirm]").blur(function(){
 										<input type="hidden" id="confmKey" name="confmKey" value=""  >
 										<input type="text" id="zipNo" name="zipNo" class="inputTypeText" placeholder="우편번호" readonly="readonly"
 										maxlength="14" value="<%=vo.getAcc_zipcode() %>" type="text" /> 
-										<a onclick="goPopup();" class="btnNormal" id="postBtn">주소검색</a><br/> 
+										<a onclick="goPopup();" class="btnNormal" id="postBtn" style = "cursor: pointer;">주소검색</a><br/> 
 										<input type="text" id="roadAddrPart1" name="roadAddrPart1" class="inputTypeText" placeholder="도로명주소" readonly="readonly" value="<%=vo.getAcc_addr() %>" /> 도로명주소
 										<br/> 
 										<input type="text" id="addrDetail" name="addrDetail" placeholder="상세주소" value="<%=vo.getAcc_addr2() %>" required /> 상세주소
@@ -368,9 +371,9 @@ $("input[name=passwd_confirm]").blur(function(){
 						<div class="ec-base-table typeWrite ">
 						</div>
 						<div class="ec-base-button justify" style="padding: 80px; margin-top:-100px;">
-							<input type="submit" class="btnSubmitFix sizeM" style="background-color:#A0D9D9;" value="회원정보수정">
+							<input type="submit" class="btnSubmitFix sizeM" style="background-color:#A0D9D9; cursor: pointer;" value="회원정보수정">
 							<a href="../../mypage.do?command=main" class="btnEmFix sizeM">취소</a> 
-							<input type="button" onclick="deleteUser()" class="btnEmFix sizeM" value="회원탈퇴">
+							<input type="button" onclick="deleteUser()" class="btnEmFix sizeM" value="회원탈퇴" style = "cursor: pointer;">
 <!-- 						<a href="../../Account_Controller.do?command=withdrawal" class="btnEmFix sizeM" >회원탈퇴</a> -->
 						</div>
 						

@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%-- UserSession --%>
-<%Vo_Account sessionVo = (Vo_Account) session.getAttribute("sessionVo");%>
+<%Vo_Account vo = (Vo_Account) session.getAttribute("vo");%>
 <%-- category --%>
 <% String catd = request.getParameter("catd"); %>
 
@@ -21,7 +21,7 @@
 <jsp:include page="/head.jsp"></jsp:include>
 
 </head>
-<body>
+<body id="body">
 	<header>
 	<jsp:include page="/header.jsp"></jsp:include>
 	</header>

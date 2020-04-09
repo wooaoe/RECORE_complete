@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Mypage_BoardUpdate</title>
+<title>RECORE &mdash; BOARD UPDATE</title>
 
 <%-- # 현재 페이지  CSS / 순서 변경 금지 --%>
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
@@ -24,6 +24,10 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js "></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/RECOREMain/RECORECommunity/qna_manager/editor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/RECOREMain/RECORECommunity/qna_manager/qna/js/qna_boardwrite.js"></script>
+
+<!-- @@ RECORE favicon @@  -->
+    <link rel="icon" href="<%=request.getContextPath()%>/images/recorefavi.png">
+
 <style type="text/css">
 	 html{
   	scroll-behavior : smooth;

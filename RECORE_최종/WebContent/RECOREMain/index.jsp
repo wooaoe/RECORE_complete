@@ -16,20 +16,20 @@
     <title>RECORE &mdash; RECORE</title>
     <%@ include file = "/head.jsp" %>
     
+    <!-- @@ RECORE favicon @@  -->
+    <link rel="icon" href="<%=request.getContextPath()%>/images/recorefavi.png">
+    
+    
     <style type="text/css">
     	html{
     		scroll-behavior:smooth;
     	}
     </style>
     
-    <!-- @@ RECORE favicon @@  -->
-    <link rel="icon" href="<%=request.getContextPath()%>/images/recorefavi.png">
     
   </head>
   
   <body id="body">
-  
-  
   
   <div class="site-wrap">
 
@@ -261,10 +261,13 @@
  				   </div> 
            		</div>
           </div>
-          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <br><br><br><br><br><br><br>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" 
+          role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
           </a>
+          
           <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
@@ -273,7 +276,7 @@
 
 
 
-    <div class="site-section"><!-- **border-bottom 삭제(펀딩과 기획 사이에 있던 hr) 20/01/15 -->
+    <div class="site-section" style="padding: 0px;"><!-- **border-bottom 삭제(펀딩과 기획 사이에 있던 hr) 20/01/15 -->
     
       <div class="container">
         <div class="row">
@@ -281,7 +284,7 @@
           </div>
           
           <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
-			<span class="sub-title" align="center">Funding</span>
+			<span class="sub-title" style = "text-align:center;">Funding</span>
             <h2  align="center" style="margin-bottom: 50px"><b>이 펀딩 어때요?</b></h2>
           </div>
 
@@ -290,15 +293,13 @@
       	</div>
       </div>
       
-      
-      
-      <div class="container">
+       <div class="container">
         <div class="row">
         	
         	<c:forEach begin="0" end="2" var="i">
         	
         		 <div class="col-lg-4 col-md-6 mb-4 project-entry">
-		            <a href="<%=request.getContextPath() %>/funding.do?command=selectOneFunding&pageno=${page }&fund_no=${funding_list.get(vo).fund_no}" class="d-block figure">
+		            <a href="<%=request.getContextPath() %>/funding.do?command=selectOneFunding&pageno=1&fund_no=${flist.get(i).fund_no}" class="d-block figure">
 		              <img src="<%=request.getContextPath() %>/RECOREMain/RECOREFunding/images/${flist.get(i).fund_no }/f_img.png" alt="Image" class="img-fluid">
 		            </a>
 		            <h3 class="mb-0"><a href="#">${flist.get(i).fund_title }</a></h3>
@@ -327,8 +328,9 @@
         <c:forEach begin="0" end="4" var="i" >
         
 	        <div class="" style="padding:10px;" onclick="location.href='<%=request.getContextPath() %>/issue.do?command=selectOneExhibition&pageno=1&iss_no=${elist.get(i).iss_no}'">
-		          <img src="<%=request.getContextPath() %>/RECOREMain/RECOREIssue/images/${elist.get(i).iss_no }/f_img.png" alt="Image" style="margin:0 auto 30px auto;margin-left: 30px;" >
-		          <h5 class="mb-0" style="margin-left: 30px;">${elist.get(i).iss_title }</h5>
+		          <img src="<%=request.getContextPath() %>/RECOREMain/RECOREIssue/images/${elist.get(i).iss_no }/f_img.png" alt="Image" 
+		          style="margin:0 auto 30px auto;margin-left: 30px; cursor: pointer;" >
+		          <h5 class="mb-0" style="margin-left: 30px; cursor: pointer;">${elist.get(i).iss_title }</h5>
 	        </div>
         
         
@@ -369,125 +371,8 @@
 			<a href = "#body"><img src = "<%=request.getContextPath()%>/images/chevron3.png" /></a>
 		  </div>
 
-
-	<!-- footer -->
-    <footer class="site-footer border-top">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 mb-5 mb-lg-0">
-            <div class="row mb-5">
-              <div class="col-md-12">
-                <h3 class="footer-heading mb-4">Navigation</h3>
-              </div>
-              <div class="col-md-6 col-lg-6">
-                <ul class="list-unstyled">
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">Services</a></li>
-                  <li><a href="#">News</a></li>
-                  <li><a href="#">Team</a></li>
-                </ul>
-              </div>
-              <div class="col-md-6 col-lg-6">
-                <ul class="list-unstyled">
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Privacy Policy</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                  <li><a href="#">Membership</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4">
-            <div class="mb-5">
-              <h3 class="footer-heading mb-4">Recent News</h3>
-              <div class="block-25">
-                <ul class="list-unstyled">
-                  <li class="mb-3">
-                    <a href="#" class="d-flex">
-                      <figure class="image mr-4">
-                        <img src="images/hero_bg_1.jpg" alt="" class="img-fluid">
-                      </figure>
-                      <div class="text">
-                        <span class="small text-uppercase date">Sep 16, 2018</span>
-                        <h3 class="heading font-weight-light">Lorem ipsum dolor sit amet consectetur elit</h3>
-                      </div>
-                    </a>
-                  </li>
-                  <li class="mb-3">
-                    <a href="#" class="d-flex">
-                      <figure class="image mr-4">
-                        <img src="images/hero_bg_1.jpg" alt="" class="img-fluid">
-                      </figure>
-                      <div class="text">
-                        <span class="small text-uppercase date">Sep 16, 2018</span>
-                        <h3 class="heading font-weight-light">Lorem ipsum dolor sit amet consectetur elit</h3>
-                      </div>
-                    </a>
-                  </li>
-                  <li class="mb-3">
-                    <a href="#" class="d-flex">
-                      <figure class="image mr-4">
-                        <img src="images/hero_bg_1.jpg" alt="" class="img-fluid">
-                      </figure>
-                      <div class="text">
-                        <span class="small text-uppercase date">Sep 16, 2018</span>
-                        <h3 class="heading font-weight-light">Lorem ipsum dolor sit amet consectetur elit</h3>
-                      </div>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            
-          </div>
-          
-
-          <div class="col-lg-4 mb-5 mb-lg-0">
-
-            <div class="mb-5">
-              <h3 class="footer-heading mb-2">Subscribe Newsletter</h3>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit minima minus odio.</p>
-
-              <form action="#" method="post">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control border-white text-white bg-transparent" placeholder="Enter Email" aria-label="Enter Email" aria-describedby="button-addon2">
-                  <div class="input-group-append">
-                    <button class="btn btn-primary" type="button" id="button-addon2">Send</button>
-                  </div>
-                </div>
-              </form>
-
-            </div>
-
-            <div class="row">
-              <div class="col-md-12">
-                <h3 class="footer-heading mb-4">Follow Us</h3>
-
-                <div>
-                  <a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
-                  <a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
-                  <a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
-                  <a href="#" class="
-                  pl-3 pr-3"><span class="icon-linkedin"></span></a>
-                </div>
-              </div>
-            </div>
-
-
-          </div>
-          
-        </div>
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <p>
-            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | RECORE
-            </p>
-          </div>
-          
-        </div>
-      </div>
-    </footer>
+	</div>
+	 <%@ include file="/footer.jsp" %> <!-- SI footer적용  -->
 
 
   <script src="<%=request.getContextPath()%>/RECOREMain/js/jquery-3.3.1.min.js"></script>

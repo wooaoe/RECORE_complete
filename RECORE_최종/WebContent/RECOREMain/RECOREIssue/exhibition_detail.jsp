@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>뉴스 &mdash; Colorlib Website Template</title>
+    <title>RECORE &mdash; EXHIBITION</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -32,7 +32,11 @@
 
     <link rel="stylesheet" href="<%=request.getContextPath() %>/RECOREMain/css/style.css">
     
-    
+    <style type="text/css">
+       html{
+          scroll-behavior:smooth;
+       }
+    </style>
     
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script type="text/javascript">
@@ -57,7 +61,7 @@
     </script>
     
   </head>
-  <body>
+  <body id="body">
   
   
    <!-- header -->
@@ -66,20 +70,18 @@
     <div class="site-section" style="padding:10px;">
        <div class="" style="width:100%; text-align: right; margin-top:3rem; padding-right: 17%; ">
        <div>
-       <img src="<%=request.getContextPath() %>/RECOREMain/images/icon/previous.png" width="20px" height="20px" style="cursor:pointer; margin-left: 10px" onclick="location.href='issue.do?command=exhibitionPrepage&iss_no=${issue_vo.iss_no}'">
        <img src="<%=request.getContextPath() %>/RECOREMain/images/icon/list.png" width="30px" height="30px" style="cursor:pointer; margin-left: 10px" onclick="location.href='issue.do?command=selectAllExhibition&pageno=${page}'">
-       <img src="<%=request.getContextPath() %>/RECOREMain/images/icon/next.png" width="20px" height="20px" style="cursor:pointer; margin-left: 10px" onclick="location.href='issue.do?command=exhibitionNextpage&iss_no=${issue_vo.iss_no}'">       
        </div>
        <div class="text-muted" style="font-size: 10pt;"></div>
        </div>
-       <h1  style="margin-top:5rem; font-size: 3rem; text-align: center;" >${issue_vo.iss_title }</h1>
+       <h1  style="margin-top:5rem; font-size: 30pt; text-align: center;" >${issue_vo.iss_title }</h1>
        <div style="text-align: right; padding-right: 17%; padding-top: 30px; padding-bottom: 20px">${issue_vo.iss_regdate }</div>
     </div>
 
 
 
     <div class="site-section site-block-3 bg-light">
-      <div class="container">
+      <div class="container" style="padding-left: 100px;">
         <div class="row">
 
              <c:forEach begin="1" end="${issue_vo.iss_con_count }" var="i">

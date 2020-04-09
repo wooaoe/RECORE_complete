@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%-- UserSession --%>
-<%Vo_Account sessionVo = (Vo_Account) session.getAttribute("vo");%>
+<%Vo_Account vo = (Vo_Account) session.getAttribute("vo");%>
 
 <!DOCTYPE html>
 <html>
@@ -26,7 +26,7 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/RECOREMain/RECORECommunity/qna_manager/qna/js/qna_boardwrite.js"></script>
 
 </head>
-<body>
+<body id="body">
 	<header>
 		<jsp:include page="/header.jsp"></jsp:include>
 	</header>
@@ -43,10 +43,9 @@
 					</div>
 					<%-- Write Form --%>
 					<form id="boardWriteForm" action="qna.do" method="post">
-						${qnaVo.qna_no }
 						<input type="hidden" name="command" value="qna_update"> 
 						<input type="hidden" name="qna_no" value="${qnaVo.qna_no }">
-						<input type="hidden" name="writer" value="${sessionVo.acc_no }">
+						<input type="hidden" name="writer" value="${vo.acc_no }">
 						<div class="xans-element- xans-board xans-board-write-4 xans-board-write xans-board-4">
 							<div class="ec-base-table typeWrite ">
 								<table summary="">
@@ -78,7 +77,7 @@
 										</tr>
 										<tr>
 											<th>작성자</th>
-											<td>${sessionVo.acc_id }</td>
+											<td>${vo.acc_id }</td>
 										</tr>
 										<%-- Smart Editor --%>
 										<tr>
@@ -93,11 +92,11 @@
 							</div>
 							<div class="ec-base-button ">
 								<span class="gLeft"> 
-									<input class="btnNormalFix sizeS" type="button" value="목록" onclick="location.href='qna.do?command=qna_list&catd=all'">
+									<input class="btnNormalFix sizeS" type="button" value="목록" onclick="location.href='qna.do?command=qna_list&catd=all'" style="cursor:pointer">
 								</span> 
 								<span class="gRight"> 
-									<input id="save" class="btnNormalFix sizeS" type="button" value="수정">
-									<input class="btnBasicFix sizeS" type="button" value="취소" onclick="location.href='qna.do?command=qna_list&catd=all'">
+									<input id="save" class="btnNormalFix sizeS" type="button" value="수정" style="cursor:pointer">
+									<input class="btnBasicFix sizeS" type="button" value="취소" onclick="location.href='qna.do?command=qna_list&catd=all'" style="cursor:pointer">
 								</span>
 							</div>
 						</div>

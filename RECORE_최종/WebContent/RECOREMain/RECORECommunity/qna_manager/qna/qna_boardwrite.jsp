@@ -4,7 +4,7 @@
 <%response.setContentType("text/html; charset=UTF-8");%>
 
 <%-- UserSession --%>
-<%Vo_Account sessionVo = (Vo_Account) session.getAttribute("vo");%>
+<%Vo_Account vo = (Vo_Account) session.getAttribute("vo");%>
 <%-- category --%>
 <% String catd = (String)session.getAttribute("catd"); %>
 
@@ -27,7 +27,7 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/RECOREMain/RECORECommunity/qna_manager/qna/js/qna_boardwrite.js"></script>
 
 </head>
-<body>
+<body id="body">
 	<header>
 		<jsp:include page="/header.jsp"></jsp:include>
 	</header>
@@ -45,7 +45,7 @@
 					<%-- Write Form --%>
 					<form id="boardWriteForm" action="qna.do" method="post">
 						<input type="hidden" name="command" value="qna_write"> 
-						<input type="hidden" name="writer" value="${sessionVo.acc_no }">
+						<input type="hidden" name="writer" value="${vo.acc_no }">
 						<input type="hidden" name="qna_front_img" id="qna_front_img" value="">
 						<input type="hidden" name="qna_seq_no" id="qna_seq_no" value="0">
 						
@@ -89,7 +89,7 @@
 										</tr>
 										<tr>
 											<th>작성자</th>
-											<td>${sessionVo.acc_id }</td>
+											<td>${vo.acc_id }</td>
 										</tr>
 										<%-- Smart Editor --%>
 										<tr>
@@ -103,11 +103,11 @@
 							</div>
 							<div class="ec-base-button ">
 								<span class="gLeft"> 
-									<input class="btnNormalFix sizeS" type="button" value="목록" onclick="location.href='qna.do?command=qna_list&catd=all'">
+									<input class="btnNormalFix sizeS" type="button" value="목록" onclick="location.href='qna.do?command=qna_list&catd=all'" style="cursor:pointer">
 								</span> 
 								<span class="gRight"> 
-									<input id="save" class="btnNormalFix sizeS" type="button" value="등록">
-									<input class="btnBasicFix sizeS" type="button" value="취소" onclick="location.href='qna.do?command=qna_list&catd=all'">
+									<input id="save" class="btnNormalFix sizeS" type="button" value="등록" style="cursor:pointer">
+									<input class="btnBasicFix sizeS" type="button" value="취소" onclick="location.href='qna.do?command=qna_list&catd=all'" style="cursor:pointer">
 								</span>
 							</div>
 						</div>

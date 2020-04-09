@@ -4,7 +4,9 @@
     
 <% request.setCharacterEncoding("utf-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
-
+<%@ page import="com.mvc.vo.Vo_Funding" %>
+<%@ page import="com.mvc.vo.Vo_Account" %>
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -30,6 +32,8 @@
 
     <link rel="stylesheet" href="<%=request.getContextPath() %>/RECOREMain/css/style.css">
     
+    <!-- @@ RECORE favicon @@  -->
+    <link rel="icon" href="<%=request.getContextPath()%>/images/recorefavi.png">
     
 	<style type="text/css">
 		.newsButtonWhite{
@@ -58,10 +62,11 @@
 		}
 		html{
 			scroll-behavior: smooth;
-		
 		}
-		
-	
+		.img-fluid{
+			width: 370px;
+			height: 250px;
+		}
 	</style>
     
   </head>
@@ -196,22 +201,34 @@
       <div class="container">
         <div class="row align-items-center">
           <div class="col-md-10">
-            <br><br><br><br>
+            <br><br><br><br><br><br>
             <h1>FUNDING</h1>
+            <h5><span class="sub-text">&nbsp;Your beautiful Life</span></h5>
           </div>
         </div>
       </div>
     </div> 
     
+   <%--  <div class="site-section">
+      <div class="container">
+            <div class="row" style = "position: relative; bottom: 50px;"> 
+          <div class="col-12 text-center">
+            <span class="sub-title">PRODUCT</span>
+            <h2 class="font-weight-bold text-black mb-5"><%=kinds %></h2> --%>
+    
+    
+    
+    
+    
     
     <div class="site-section">
       <div class="container">
       
-        <div class="row">
+        <div class="row" style = "position: relative; bottom: 50px;">
           <div class="col-12 text-center">
-           
-            <h2 class="font-weight-bold text-black mb-5">펀딩 목록</h2>
-           
+          <br><br>
+            <span class="sub-title">FUNDING</span>
+            <h2 class="font-weight-bold text-black mb-5">FUNDING LIST</h2>
           </div>
         </div>
         
@@ -221,9 +238,9 @@
 				<c:choose>
 					<c:when test="${vo >= funding_list.size() }">
 						<div class="col-lg-3 col-md-6 mb-4">
-				           <div class="person">
-				             <div class="bio-img">
-				               <div class="social">
+				           <div class="person" style="cursor:pointer;">
+				             <div class="bio-img" style="cursor:pointer;">
+				               <div class="social" style="cursor:pointer;">
 								<span style="font-size: 8pt; color:white;"><b></b></span>
 				               </div>
 				             </div>
@@ -234,9 +251,11 @@
 					</c:when>
 					<c:otherwise>
 						<div class="col-lg-3 col-md-6 mb-4">
-				           <div class="person" onclick="location.href='funding.do?command=selectOneFunding&pageno=${page }&fund_no=${funding_list.get(vo).fund_no}'">
+				           <div class="person" onclick="location.href='funding.do?command=selectOneFunding&pageno=${page }&fund_no=${funding_list.get(vo).fund_no}'" 
+				           style="cursor:pointer;">
 				             <div class="bio-img">
-				                 <img src="<%=request.getContextPath() %>/RECOREMain/RECOREFunding/images/${funding_list.get(vo).fund_no }/f_img.png" alt="Image" class="img-fluid">
+				                 <img src="<%=request.getContextPath() %>/RECOREMain/RECOREFunding/images/${funding_list.get(vo).fund_no }/f_img.png" 
+				                 alt="Image" class="img-fluid" style="cursor:pointer;">
 				               <div class="social" style="color: white; font-family: 500">
 				              
 				               <%
@@ -269,30 +288,44 @@
         </div>
         
         
-        <div class="row" style="text-align: center;">
-        	
-        	<div class="" style="width:100%; margin-top:20px; text-align :center; padding-left: 44%;">
-        		
-        		<c:choose>
-        			<c:when test="${page eq 1 }">
-		        		<div class="newsButtonWhite">1</div>
-		        		<div class="newsButton" onclick="location.href='funding.do?command=selectAllFunding&pageno=2'">2</div>
-		        		<div class="newsButton" onclick="location.href='funding.do?command=selectAllFunding&pageno=3'">3</div>
-        			</c:when>
-        			<c:otherwise>
-		        		<div class="newsButton" onclick="location.href='funding.do?command=selectAllFunding&pageno=${page-1 }'">${page-1 }</div>
-        				<div class="newsButtonWhite" onclick="location.href='funding.do?command=selectAllFunding&pageno=${page }'">${page }</div>
-		        		<div class="newsButton" onclick="location.href='funding.do?command=selectAllFunding&pageno=${page+1 }'">${page+1}</div>
-        			</c:otherwise>
-        		</c:choose>
-        		
-        		
-        	</div>
-        	
+               <div class="row" style="text-align: center;">
+           
+           <div class="" style="width:100%; margin-top:20px; text-align :center; padding-left: 44%;">
+              
+              <% 
+             	 List<Vo_Funding> list = (List<Vo_Funding>)request.getAttribute("funding_list");  
+            	  int listsize = list.size();
+              %>
+                 
+             <c:choose>
+                 <c:when test="${funding_list.size() <= 8 }">
+                    <div class="newsButtonWhite">1</div>
+                 </c:when>
+                 
+                 <c:when test="${funding_list.size() > 8 }">
+                    
+                    <c:forEach begin="1" end="<%=((listsize-1)/8)+1 %>" var="i">
+                       <c:if test="${i == page }">
+                          <div class="newsButtonWhite" onclick="location.href='funding.do?command=selectAllFunding&pageno=${i }'">${i }</div>
+                       </c:if>
+                       
+                       <c:if test="${i != page }">
+                          <div class="newsButton" onclick="location.href='funding.do?command=selectAllFunding&pageno=${i }'">${i }</div>
+                       </c:if>
+                    </c:forEach>
+                    
+                 </c:when>
+                 
+              </c:choose>  
+              
+              
+           </div>
+           
         </div>
         </div>
       </div>
     </div>
+
 
 
    <%@ include file = "/footer.jsp" %>

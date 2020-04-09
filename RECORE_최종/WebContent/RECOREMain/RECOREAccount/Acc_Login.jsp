@@ -31,12 +31,11 @@ $(document).ready(function(){
         }
     });
      
-    // ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
-    $("#id").keyup(function(){ // ID 입력 칸에 ID를 입력할 때,
+    $("#loginbtn").click(function(){ // 로그인 버튼을 클릭할 때,
         if($("#remember").is(":checked")){ // ID 저장하기를 체크한 상태라면,
             setCookie("key", $("#id").val(), 7); // 7일 동안 쿠키 보관
         }
-    });
+ });
 });
  
 function setCookie(cookieName, value, exdays){
@@ -80,6 +79,10 @@ text-ailgn:center;
 animation: slideIn 0.4s cubic-bezier(0.37, 0.82, 0.2, 1);
 cursor:pointer;
 }
+html{
+scroll-behavior: smooth;
+}
+
 </style>
 </head>
 <body>
@@ -122,7 +125,7 @@ cursor:pointer;
 							<div class="submit-wrap" style="position: relative;">
  							<input type="checkbox" id="remember" class="checkbox" checked>
 						        <label for="remember" style="margin-top: -5px;">아이디 저장</label>
-								<input type="submit" value="로그인" style="text-align: center; margin-top: 5px;" class="submit" > 
+								<input type="submit" value="로그인" style="text-align: center; margin-top: 5px;" id = "loginbtn" class="submit" > 
 								<span class="tab signup active">
 								<%-- <a href="<%=apiURL%>" class="more" ><img width="200" style="margin-top: 0px;" src="<%=request.getContextPath()%>/RECOREMain/RECOREAccount/Accimages/login.PNG"/></a>
 								 --%><a href="Acc_Signup.jsp" class="more" style="margin-top: 20px;">회원가입</a>

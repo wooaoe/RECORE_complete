@@ -4,7 +4,7 @@
 <%response.setContentType("text/html; charset=UTF-8");%>
 
 <%-- UserSession --%>
-<%Vo_Account sessionVo = (Vo_Account) session.getAttribute("vo");%>("sessionVo");%>
+<%Vo_Account vo = (Vo_Account) session.getAttribute("vo");%>
 
 <!DOCTYPE html>
 <html>
@@ -24,7 +24,7 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/RECOREMain/RECORECommunity/qna_manager/editor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
  
 </head>
-<body>
+<body id="body">
 	<header>
 		<jsp:include page="/header.jsp"></jsp:include>
 	</header>
@@ -43,7 +43,7 @@
 					<form id="boardWriteForm" action="qna.do" method="post">
 						<input type="hidden" name="command" value="qna_answerupdate"> 
 						<input type="hidden" name="qna_no" value="${qnaVo.qna_no }">
-						<input type="hidden" name="writer" value="${sessionVo.acc_no }">
+						<input type="hidden" name="writer" value="${vo.acc_no }">
 						<input type="hidden" name="title" value="${qnaVo.qna_title }">
 						<div class="xans-element- xans-board xans-board-write-4 xans-board-write xans-board-4">
 							<div class="ec-base-table typeWrite ">
@@ -74,11 +74,11 @@
 							</div>
 							<div class="ec-base-button ">
 								<span class="gLeft"> 
-									<input class="btnNormalFix sizeS" type="button" value="목록" onclick="location.href='qna.do?command=qna_list&catd=all'">
+									<input class="btnNormalFix sizeS" type="button" value="목록" onclick="location.href='qna.do?command=qna_list&catd=all'" style="cursor:pointer">
 								</span> 
 								<span class="gRight"> 
-									<input id="save" class="btnNormalFix sizeS" type="button" value="수정">
-									<input class="btnBasicFix sizeS" type="button" value="취소" onclick="location.href='qna.do?command=qna_list&catd=all'">
+									<input id="save" class="btnNormalFix sizeS" type="button" value="수정" style="cursor:pointer">
+									<input class="btnBasicFix sizeS" type="button" value="취소" onclick="location.href='qna.do?command=qna_list&catd=all'" style="cursor:pointer">
 								</span>
 							</div>
 						</div>
