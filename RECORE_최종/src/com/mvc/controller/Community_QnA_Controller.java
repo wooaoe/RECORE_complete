@@ -291,9 +291,10 @@ public class Community_QnA_Controller extends HttpServlet {
 			
 			/*글 qna_no Get*/
 			int qna_no = Integer.parseInt(request.getParameter("qna_no"));
+			String reply = request.getParameter("reply");
 			
 			/*글 delete*/
-			boolean res = dao.C_delete(qna_no);
+			boolean res = dao.C_delete(qna_no, reply);
 			
 			if (res) {
 				jsResponse("글이 삭제되었습니다.", "qna.do?command=qna_list&catd=all", response);

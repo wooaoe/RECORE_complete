@@ -42,7 +42,7 @@ public interface CommunityDao {
 	
 	public boolean Cr_update(Vo_Review rev); //Review 수정
 	
-	public boolean C_delete(int qna_no); //삭제 
+	public boolean C_delete(int qna_no, String reply); //삭제 
 	
 	/*Product*/
 	public List<Vo_QnA> Pd_selectAll(int pseq);

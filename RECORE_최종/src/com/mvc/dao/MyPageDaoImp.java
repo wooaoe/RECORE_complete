@@ -46,8 +46,8 @@ public class MyPageDaoImp implements MyPageDao{
       Vo_Wish vo_wish = null;
       
       String sql_cart = "SELECT * FROM CART JOIN PROD_OPTION USING(PROD_ID) JOIN PRODUCT USING(PROD_NO) WHERE ACC_NO=?";
-      String sql_fun = "SELECT * FROM FUNDING JOIN F_PM USING(FUND_NO) WHERE ACC_NO=? ORDER BY FPM_NO";
-      String sql_order = "SELECT * FROM ORDER_NUM WHERE ACC_NO=? ORDER BY ORDER_NO ASC";
+      String sql_fun = "SELECT * FROM FUNDING JOIN F_PM USING(FUND_NO) WHERE ACC_NO=? ORDER BY FPM_NO DESC";
+      String sql_order = "SELECT * FROM ORDER_NUM WHERE ACC_NO=? ORDER BY ORDER_NO DESC";
       String sql_qna = "SELECT * FROM QNA JOIN ACCOUNT USING(ACC_NO) WHERE ACC_NO=? ORDER BY QNA_NO DESC";
       String sql_wish = "SELECT * FROM WISH JOIN PRODUCT USING(PROD_NO) WHERE ACC_NO=?";
       
@@ -442,7 +442,7 @@ public class MyPageDaoImp implements MyPageDao{
       ResultSet rs = null;
       List list_search = new ArrayList();
       Vo_QnA vo_qna = null;
-      String sql = "SELECT * FROM QNA WHERE ACC_NO=? AND " + catd + " LIKE('%"+ keyword+ "%')";
+      String sql = "SELECT * FROM QNA WHERE ACC_NO=? AND " + catd + " LIKE('%"+ keyword+ "%') ORDER BY QNA_NO DESC";
       
       try {
          pstmt = con.prepareStatement(sql);
@@ -581,7 +581,7 @@ public class MyPageDaoImp implements MyPageDao{
       ResultSet rs = null;
       List list_order = new ArrayList();
       Vo_Order_Num vo_order = null;
-      String sql = "SELECT * FROM ORDER_NUM";
+      String sql = "SELECT * FROM ORDER_NUM ORDER BY ORDER_NO DESC";
       
       try {
          pstmt = con.prepareStatement(sql);

@@ -341,19 +341,25 @@ public class CommunityDaoImpl implements CommunityDao{
 	 * Date: 2019. 12. 31.
 	 */
 	@Override
-	public boolean C_delete(int qna_no) {
+	public boolean C_delete(int qna_no, String reply) {
 		Connection con = getConnection();
 		PreparedStatement pstmt = null;
 		Properties prop = new Properties();
 		String filePath = properties("query_community.properties");
 		
 		int res = 0;
-		
 		try {
 			prop.load(new FileInputStream(filePath));
-			String sql = prop.getProperty("qna_delete");
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, qna_no);
+			if(reply.equals("y")) {
+				String sql = prop.getProperty("qna_delete_re");
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, qna_no);
+				pstmt.setInt(2, qna_no);
+			}else {
+				String sql = prop.getProperty("qna_delete");
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, qna_no);
+			}
 			
 			res = pstmt.executeUpdate();
 			
